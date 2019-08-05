@@ -7,7 +7,7 @@ spring:
   application:
     name: bmw-stock
 server:
-  port: 20002
+  port: 20003
 security:
   oauth2:
     client:
@@ -16,10 +16,6 @@ security:
       clientSecret: "9LJWr8ztDW9jkW2C"
       accessTokenUri: https://stageidp.apigw.cdkapps.cn/auth/token
       scope: showroom
-api:
-  gatewayUri: https://stage.apigw.cdkapps.cn/service/MBOBI/987501
-  endpoints:
-    repairOrders: /repair-orders
   
 # 服务管理配置
 management:
@@ -63,7 +59,9 @@ spring:
   application:
     name: bmw-stock
 server:
-  port: 20002
+  servlet:
+    context-path: /stock
+  port: 20003
 
 # 服务管理配置
 management:
@@ -103,7 +101,3 @@ security:
       clientSecret: "9LJWr8ztDW9jkW2C"
       accessTokenUri: https://stageidp.apigw.cdkapps.cn/auth/token
       scope: showroom
-api:
-  gatewayUri: https://stage.apigw.cdkapps.cn/service/MBOBI/987501
-  endpoints:
-    repairOrders: /repair-orders
