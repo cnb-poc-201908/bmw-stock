@@ -1,0 +1,109 @@
+spring:
+  profiles:
+    active: k8s
+---
+spring:
+  profiles: local
+  application:
+    name: bmw-stock
+server:
+  port: 20002
+security:
+  oauth2:
+    client:
+      grantType: client_credentials
+      clientId: "Di7hBWKdZbATm4EAqAghniLQz1MGvjdS"
+      clientSecret: "9LJWr8ztDW9jkW2C"
+      accessTokenUri: https://stageidp.apigw.cdkapps.cn/auth/token
+      scope: showroom
+api:
+  gatewayUri: https://stage.apigw.cdkapps.cn/service/MBOBI/987501
+  endpoints:
+    repairOrders: /repair-orders
+  
+# 服务管理配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"        #暴漏的接口，"*"表示所有web监控接口
+        exclude:            #不暴漏的接口
+      base-path: /actuator  #监控根路径
+  endpoint:
+    health:
+      show-details: ALWAYS
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true 
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+## 日志设置配置信息
+logging:
+  config: classpath:logback-boot_dev.xml
+
+#注册中心
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10001/eureka
+  instance:
+    prefer-ip-address: true
+#    securePortEnabled: true
+    instance-id: ${spring.application.name}:${server.port}
+  environment: dev
+
+
+---
+spring:
+  profiles: k8s
+  application:
+    name: bmw-stock
+server:
+  port: 20002
+
+# 服务管理配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"        #暴漏的接口，"*"表示所有web监控接口
+        exclude:            #不暴漏的接口
+      base-path: /actuator  #监控根路径
+  endpoint:
+    health:
+      show-details: ALWAYS
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true 
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+#注册中心
+eureka:
+  client:
+    service-url:
+      defaultZone: http://bmw-register:10001/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
+  environment: sit
+
+security:
+  oauth2:
+    client:
+      grantType: client_credentials
+      clientId: "Di7hBWKdZbATm4EAqAghniLQz1MGvjdS"
+      clientSecret: "9LJWr8ztDW9jkW2C"
+      accessTokenUri: https://stageidp.apigw.cdkapps.cn/auth/token
+      scope: showroom
+api:
+  gatewayUri: https://stage.apigw.cdkapps.cn/service/MBOBI/987501
+  endpoints:
+    repairOrders: /repair-orders
