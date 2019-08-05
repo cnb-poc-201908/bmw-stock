@@ -1,7 +1,18 @@
 package com.bmw.model;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Stock {
-	private String sotckId;
+	//经销商ID
+	private String dealerId;
+	//区域ID
+	private String regionId;
+	//集团ID
+	private String groupId;
+	//库存ID
+	private String stockId;
+
 	private String productionDate;
 	private String vehicleSeriesCode;
 	private String vehicleModelCode;
@@ -13,11 +24,29 @@ public class Stock {
 	private String status;
 	private Boolean isBelongTo;
 
-	public String getSotckId() {
-		return sotckId;
+	public String getDealerId() {
+		return dealerId;
 	}
-	public void setSotckId(String sotckId) {
-		this.sotckId = sotckId;
+	public void setDealerId(String dealerId) {
+		this.dealerId = dealerId;
+	}
+	public String getRegionId() {
+		return regionId;
+	}
+	public void setRegionId(String regionId) {
+		this.regionId = regionId;
+	}
+	public String getGroupId() {
+		return groupId;
+	}
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+	public String getStockId() {
+		return stockId;
+	}
+	public void setStockId(String stockId) {
+		this.stockId = stockId;
 	}
 	public String getProductionDate() {
 		return productionDate;
