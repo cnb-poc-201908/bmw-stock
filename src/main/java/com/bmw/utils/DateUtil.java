@@ -57,9 +57,9 @@ public class DateUtil {
     	return firstDate.compareTo(secondDate);
     }
 
-    public static void main(String ...dateStr) {
-    	System.out.print(dateToString(LocalDate.now()));
-    }
+//    public static void main(String ...dateStr) {
+//    	System.out.print(dateToString(LocalDate.now()));
+//    }
     
     public static Long intervalDays(String startDateString) {
           Date startDate = stringToDate(startDateString);
