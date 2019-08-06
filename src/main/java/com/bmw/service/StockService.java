@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bmw.model.Stock;
+import com.bmw.model.StockInsight;
 import com.bmw.utils.DateUtil;
 
 @Service
@@ -15,6 +16,8 @@ public class StockService {
 
 	@Autowired
 	private List<Stock> stockList;
+	@Autowired
+	private List<StockInsight> stockInsightList;
 
 	public List<Stock> getStocks(String startDate, String endDate,
 			String keyword, String dealerId,
@@ -43,6 +46,25 @@ public class StockService {
 
 		if(StringUtils.isNotBlank(keyword)) {
 			source = source.stream().filter((Stock stock) -> this.containsKeyword(stock, keyword)).collect(Collectors.toList());
+		}
+
+		return source;
+	}
+
+	public List<StockInsight> getStockInsightList(String dealerId, String regionId, String groupId) {
+		List<StockInsight> source = stockInsightList;
+
+		if (regionId != null) {
+			source = source.stream().filter((StockInsight s360) -> s360.getRegionId().equals(regionId))
+					.collect(Collectors.toList());
+		}
+		if (dealerId != null) {
+			source = source.stream().filter((StockInsight s360) -> s360.getDealerId().equals(dealerId))
+					.collect(Collectors.toList());
+		}
+		if (groupId != null) {
+			source = source.stream().filter((StockInsight s360) -> s360.getGroupId().equals(groupId))
+					.collect(Collectors.toList());
 		}
 
 		return source;

@@ -6,7 +6,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.bmw.data.StockDataBuilder;
 import com.bmw.model.Stock;
+import com.bmw.model.StockInsight;
 
 @Configuration
 public class RestConfig implements WebMvcConfigurer {
@@ -64,5 +64,11 @@ public class RestConfig implements WebMvcConfigurer {
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     public List<Stock> stockList() {
     	return StockDataBuilder.buildStockList();
+    }
+
+    @Bean
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    public List<StockInsight> stock360List(List<Stock> stockList) {
+    	return StockDataBuilder.buildStock360List(stockList);
     }
 }
