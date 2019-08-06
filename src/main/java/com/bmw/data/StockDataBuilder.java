@@ -2,10 +2,12 @@ package com.bmw.data;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.bmw.model.Stock;
-import com.bmw.model.Stock360;
+import com.bmw.model.StockInsight;
 import com.bmw.utils.DateUtil;
 
 public class StockDataBuilder {
@@ -67,6 +69,16 @@ public class StockDataBuilder {
 			}
 		}
 		return stockList;
+	}
+ 	
+ 	public static List<StockInsight> buildStock360List(List<Stock> stockList){
+ 		List<StockInsight> stock360List = new ArrayList<>();
+ 		
+ 		for(Stock stock: stockList) {
+ 			StockInsight stock360 = new StockInsight(stock);
+ 			stock360List.add(stock360);
+ 		}
+ 		return stock360List;
 
 	}
 }

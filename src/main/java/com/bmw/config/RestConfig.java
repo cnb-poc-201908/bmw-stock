@@ -1,12 +1,13 @@
 package com.bmw.config;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +20,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.bmw.common.BMWPocConstants;
 import com.bmw.data.StockDataBuilder;
 import com.bmw.model.Stock;
+import com.bmw.model.StockInsight;
 
 @Configuration
 public class RestConfig implements WebMvcConfigurer {
@@ -59,10 +62,28 @@ public class RestConfig implements WebMvcConfigurer {
         //3.返回新的CorsFilter.
         return new CorsFilter(configSource);
     }
-
+    
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    public Map<String, Object> stockData() {
+    	Map<String, Object> data = new HashMap<>();
+    	List<Stock> stockList = StockDataBuilder.buildStockList();
+    	
+    	data.put(BMWPocConstants.KEY_NAME_STOCK_LIST, stockList());
+    	data.put(BMWPocConstants.KEY_NAME_STOCK360_LIST, 
+    			StockDataBuilder.buildStock360List(stockList));
+    	return data;
+    }
+    
+    @Bean
     public List<Stock> stockList() {
-    	return StockDataBuilder.buildStockList();
+    	List<Stock> stockList = StockDataBuilder.buildStockList();
+    	return stockList;
+    }
+    
+    @Bean
+    public List<StockInsight> stock360List(List<Stock> stockList) {
+    	List<StockInsight> stock360List = StockDataBuilder.buildStock360List(stockList);
+    	return stock360List;
     }
 }

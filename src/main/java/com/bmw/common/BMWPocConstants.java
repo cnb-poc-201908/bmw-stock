@@ -14,4 +14,6 @@ public class BMWPocConstants {
 	public static final Integer REPAIRORDER_PAGE_SIZE = 200;
 	public static final String DEFAULT_JULIAN_DATE = "2458000";
 	public static final Integer STOCK_PRICE_PER_DAY = 80;
+	public static final String KEY_NAME_STOCK_LIST = "stocklist";
+	public static final String KEY_NAME_STOCK360_LIST = "stock360list";
 }
