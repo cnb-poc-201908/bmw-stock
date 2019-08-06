@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: sit-bmw-stock
+  namespace: sit
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sit-bmw-stock
+    spec:
+      containers:
+        - name: sit-bmw-stock
+          image: registry.cn-beijing.aliyuncs.com/bmwpoc/sit-bmw-stock:{version}
+          ports:
+            - name: http-port
+              containerPort: 20003
+          env:
+            - name: spring_profiles_active
+              value: k8s
+      imagePullSecrets:
+        - name: bmwpoc
