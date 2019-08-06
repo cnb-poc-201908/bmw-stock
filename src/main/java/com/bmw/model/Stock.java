@@ -26,6 +26,26 @@ public class Stock {
 	private String vehicleChassisNumber;
 	private String status;
 	private Boolean isBelongTo;
+	private Boolean deletable;
+	private Boolean deleted;
+
+
+
+	public Boolean getDeletable() {
+		return deletable;
+	}
+
+	public void setDeletable(Boolean deletable) {
+		this.deletable = deletable;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
 
 	public String getDealerId() {
 		return dealerId;
