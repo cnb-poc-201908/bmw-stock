@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.bmw.model.Stock;
+import com.bmw.model.Stock360;
 import com.bmw.utils.DateUtil;
 
 public class StockDataBuilder {
@@ -16,7 +17,9 @@ public class StockDataBuilder {
 	private static String[] dealerIds = new String[] {"DL-10006661", "D-10006662", "D-10006663", "D-10006664"};
 	private static String[] groupIds = new String[] {"GP-10001", "GP-10002", "GP-10003"};
 	private static String[] regionIds = new String[] {"RG-10001", "RG-10002"};
-
+	
+	private static String[] licensePlateCodes = new String[] {"京A37G03","辽B66778","鄂A33669"};
+	
 	private static String[] vehicleSeriesCodes = new String[] {"E60", "E66", "E70", "E46", "E90"};
 	private static String[] vehicleModelCodes = new String[] {"NU15", "HN21", "GY01", "AY97", "VA96"};
 	private static String[] vehicleModelConfigs = new String[] {"NU15A0", "HN21_Z1LX", "GY01_Z3VZ", "AY97A7", "VA96B8"};
@@ -55,7 +58,11 @@ public class StockDataBuilder {
 				stock.setVehicleChassisNumber(chassisNumberPrefix + id);
 				stock.setIsBelongTo(true);
 				stock.setStatus(statusCodes[count % 9]);
-				stock.setProductionDate(DateUtil.dateToString(now.minusDays(count + 1L)));
+				stock.setProductionDate(DateUtil.dateToString(now.minusDays(count + 100L)));
+				if(count % 4 == 0) {
+					stock.setLicensePlate(licensePlateCodes[count % 3]);					
+				}
+				stock.setStorageDate(DateUtil.dateToString(now.minusDays(count + 1L)));
 				stockList.add(stock);
 			}
 		}

@@ -61,11 +61,11 @@ public class DateUtil {
     	System.out.print(dateToString(LocalDate.now()));
     }
     
-    public static Integer intervalDays(String startDateString) {
+    public static Long intervalDays(String startDateString) {
           Date startDate = stringToDate(startDateString);
           Date endDate = new Date();
           long diff = endDate.getTime() - startDate.getTime();//这样得到的差值是微秒级别
-          Integer days = (int) (diff / (1000 * 60 * 60 * 24));
+          Long days = diff / (1000 * 60 * 60 * 24);
           return days;
     }
 }
