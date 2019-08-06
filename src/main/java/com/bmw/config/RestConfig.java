@@ -36,12 +36,6 @@ public class RestConfig implements WebMvcConfigurer {
         converters.add(converter);
     }
 
-	@Value("${api.gatewayUri}")
-	private String gatewayUri;
-
-	@Value("${api.endpoints.repairOrders}")
-	private String endpoint;
-
 	@Autowired
 	RestTemplate restTemplate;
 
