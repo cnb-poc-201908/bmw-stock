@@ -60,4 +60,12 @@ public class DateUtil {
     public static void main(String ...dateStr) {
     	System.out.print(dateToString(LocalDate.now()));
     }
+    
+    public static Integer intervalDays(String startDateString) {
+          Date startDate = stringToDate(startDateString);
+          Date endDate = new Date();
+          long diff = endDate.getTime() - startDate.getTime();//这样得到的差值是微秒级别
+          Integer days = (int) (diff / (1000 * 60 * 60 * 24));
+          return days;
+    }
 }
