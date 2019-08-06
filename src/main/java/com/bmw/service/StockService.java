@@ -3,6 +3,7 @@ package com.bmw.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,30 +22,65 @@ public class StockService {
 
 		List<Stock> source = stockList;
 
-		if(regionId != null) {
+		if(StringUtils.isNotBlank(regionId)) {
 			source = source.stream().filter((Stock stock) -> stock.getRegionId().equals(regionId)).collect(Collectors.toList());
 		}
-		if(dealerId != null) {
+		if(StringUtils.isNotBlank(dealerId)) {
 			source = source.stream().filter((Stock stock) -> stock.getDealerId().equals(dealerId)).collect(Collectors.toList());
 		}
-		if(groupId != null) {
+		if(StringUtils.isNotBlank(groupId)) {
 			source = source.stream().filter((Stock stock) -> stock.getGroupId().equals(groupId)).collect(Collectors.toList());
 		}
 
-		if(startDate != null) {
+		if(StringUtils.isNotBlank(startDate)) {
 
 			source = source.stream().filter((Stock stock) -> DateUtil.compareDateString(stock.getProductionDate(), startDate) >= 0).collect(Collectors.toList());
 		}
 
-		if(endDate != null) {
+		if(StringUtils.isNotBlank(endDate)) {
 			source = source.stream().filter((Stock stock) -> DateUtil.compareDateString(stock.getProductionDate(), endDate) <= 0).collect(Collectors.toList());
 		}
 
-		if(keyword != null) {
+		if(StringUtils.isNotBlank(keyword)) {
 			source = source.stream().filter((Stock stock) -> this.containsKeyword(stock, keyword)).collect(Collectors.toList());
 		}
 
 		return source;
+	}
+
+	public int updateStock(String stockId, Stock newStock) {
+		int result = -1;
+		for(Stock stock : stockList) {
+			result = 0;
+			if(stockId != null && stockId.equals(stock.getStockId())) {
+				if(newStock.getStatus() != null) {
+					stock.setStatus(newStock.getStatus());
+				}
+
+				if(newStock.getStorageDate() != null) {
+					stock.setStorageDate(newStock.getStorageDate());
+				}
+
+				if(newStock.getLicensePlate() != null) {
+					stock.setLicensePlate(newStock.getLicensePlate());
+				}
+			}
+		}
+		return result;
+	}
+
+	public int deleteStock(String stockId) {
+		int result = -1;
+
+		for(Stock stock : stockList) {
+			result = 0;
+			if(stockId != null && stockId.equals(stock.getStockId())
+					&& stock.getDeletable()) {
+				stock.setDeleted(Boolean.TRUE);
+			}
+		}
+
+		return result;
 	}
 
 	private boolean containsKeyword(Stock stock, String keyword) {
