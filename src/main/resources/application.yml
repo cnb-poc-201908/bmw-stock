@@ -73,6 +73,17 @@ spring:
   profiles: k8s
   application:
     name: bmw-stock
+  redis:
+    database: 1
+    host: 112.126.99.2
+    port: 31379
+    lettuce:
+      shutdown-timeout: 100ms
+      pool:
+        min-idle: 5
+        max-idle: 10
+        max-active: 8
+        max-wait: 10ms
 server:
   servlet:
     context-path: /stock
