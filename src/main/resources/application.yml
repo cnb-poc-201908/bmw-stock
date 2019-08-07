@@ -65,8 +65,8 @@ eureka:
     prefer-ip-address: true
 #    securePortEnabled: true
     instance-id: ${spring.application.name}:${server.port}
-  environment: dev
 
+swagger.enabled: true
 
 ---
 spring:
@@ -98,6 +98,10 @@ management:
       prometheus:
         enabled: true
 
+## 日志设置配置信息
+logging:
+  config: classpath:logback-boot_k8s.xml
+
 #注册中心
 eureka:
   client:
@@ -106,7 +110,8 @@ eureka:
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${server.port}
-  environment: sit
+
+swagger.enabled: true
 
 security:
   oauth2:
