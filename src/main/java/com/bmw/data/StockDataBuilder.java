@@ -102,11 +102,11 @@ public class StockDataBuilder {
 				stock.setVehicleChassisNumber(chassisNumberPrefix + id);
 
 				stock.setStatus(statusCodes[count % 17]);
-				stock.setProductionDate(DateUtil.dateToString(now.minusDays(count + 100L)));
+				stock.setProductionDate(DateUtil.dateToString(now.minusDays(count*40L)));
 				if(count % 4 == 0) {
 					stock.setLicensePlate(licensePlateCodes[count % 3]);
 				}
-				stock.setStorageDate(DateUtil.dateToString(now.minusDays(count*10L)));
+				stock.setStorageDate(DateUtil.dateToString(now.minusDays(count*30L)));
 				stock.setDeletable(count % 3 == 0 ? Boolean.FALSE : Boolean.TRUE);
 				stock.setIsBelongTo(!stock.getDeletable());
 				stock.setDeleted(Boolean.FALSE);
