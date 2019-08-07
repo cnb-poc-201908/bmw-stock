@@ -29,7 +29,7 @@ public class StockDataBuilder {
 	private static String[] decorations = new String[] {"Light Beige", "Leather Nasca Beige",
 													"Leather Merino extended Silverstone"};
 
-	private static String[] statusCodes = new String[] {"A", "C", "F", "I", "M", "O", "R", "S", "X"};
+	private static String[] statusCodes = new String[] {"0", "50", "55", "60", "70", "75", "80", "84", "88", "89", "90", "95", "96", "97", "98", "99", "100"};
 
 	private static String stockIdPrefix = "ST-10000";
 	private static String chassisNumberPrefix = "WBAHN81027DT225";
@@ -57,13 +57,13 @@ public class StockDataBuilder {
 				stock.setDecoration(decorations[count % 3]);
 				stock.setVehicleChassisNumber(chassisNumberPrefix + id);
 				stock.setIsBelongTo(true);
-				stock.setStatus(statusCodes[count % 9]);
+				stock.setStatus(statusCodes[count % 17]);
 				stock.setProductionDate(DateUtil.dateToString(now.minusDays(count + 100L)));
 				if(count % 4 == 0) {
 					stock.setLicensePlate(licensePlateCodes[count % 3]);
 				}
 				stock.setStorageDate(DateUtil.dateToString(now.minusDays(count + 1L)));
-				stock.setDeletable(count % 3 == 0 ? Boolean.TRUE : Boolean.FALSE);
+				stock.setDeletable(count % 3 == 0 ? Boolean.FALSE : Boolean.TRUE);
 				stock.setDeleted(Boolean.FALSE);
 				stockList.add(stock);
 			}

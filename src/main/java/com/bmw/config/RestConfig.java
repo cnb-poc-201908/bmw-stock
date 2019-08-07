@@ -1,7 +1,6 @@
 package com.bmw.config;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -69,29 +68,19 @@ public class RestConfig implements WebMvcConfigurer {
 
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    public List<Stock> stockList() {
+    public List<Stock> stockList() throws IOException {
     	ValueOperations<String, String> ops = redisTemplate.opsForValue();
     	ObjectMapper objectMapper = new ObjectMapper();
-    	List<Stock> list;
-		try {
-			list = objectMapper.readValue(ops.get(BMWPocConstants.REDIS_STOCK_LIST_KEY),
+    	return objectMapper.readValue(ops.get(BMWPocConstants.REDIS_STOCK_LIST_KEY),
 					new TypeReference<List<Stock>>(){});
-		} catch (IOException e) {
-			logger.error("failed to get stocklist cache from redis.");
-			list = new ArrayList<>();
-		}
-    	return list;
     }
 
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     public List<StockInsight> stockInsightList(List<Stock> stockList) throws IOException {
-    	List<StockInsight> list;
     	ValueOperations<String, String> ops = redisTemplate.opsForValue();
     	ObjectMapper objectMapper = new ObjectMapper();
-		list = objectMapper.readValue(ops.get(BMWPocConstants.REDIS_STOCKINSIGHT_LIST_KEY),
+		return objectMapper.readValue(ops.get(BMWPocConstants.REDIS_STOCKINSIGHT_LIST_KEY),
 				new TypeReference<List<StockInsight>>(){});
-		logger.info("has {} stock insights in redis.", list.size());
-    	return list;
     }
 }
