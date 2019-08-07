@@ -29,6 +29,10 @@ public class Stock {
 	private Boolean deletable;
 	private Boolean deleted;
 
+	private String groupName;
+	private String regionName;
+	private String dealerName;
+
 
 
 	public Boolean getDeletable() {
@@ -173,6 +177,30 @@ public class Stock {
 
 	public void setStorageDate(String storageDate) {
 		this.storageDate = storageDate;
+	}
+
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+
+	public String getRegionName() {
+		return regionName;
+	}
+
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
+	}
+
+	public String getDealerName() {
+		return dealerName;
+	}
+
+	public void setDealerName(String dealerName) {
+		this.dealerName = dealerName;
 	}
 
 }

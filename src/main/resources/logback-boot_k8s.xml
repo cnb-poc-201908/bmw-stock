@@ -29,7 +29,7 @@
     <appender name="logstash"
               class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <!-- logstash IP，如果是集群，用逗号分隔 -->
-        <destination>112.126.99.2:30500</destination>
+        <destination>log-pipeline.elk.svc.cluster.local:5000</destination>
         <!-- 日志输出编码 -->
         <encoder
                 class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
