@@ -106,7 +106,7 @@ public class StockDataBuilder {
 				if(count % 4 == 0) {
 					stock.setLicensePlate(licensePlateCodes[count % 3]);
 				}
-				stock.setStorageDate(DateUtil.dateToString(now.minusDays(count*6 + 10L)));
+				stock.setStorageDate(DateUtil.dateToString(now.minusDays(count*10L)));
 				stock.setDeletable(count % 3 == 0 ? Boolean.FALSE : Boolean.TRUE);
 				stock.setIsBelongTo(!stock.getDeletable());
 				stock.setDeleted(Boolean.FALSE);
