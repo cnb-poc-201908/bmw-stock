@@ -45,7 +45,7 @@ public class StockDataBuilder {
 	private static Double[] costs = new Double[] { 600000.00, 850000.00, 800000.00, 300000.00 };;
 	// 备注字段
 	private static String[] comments = new String[] {"VIP客户","高利润","紧急","顶配"};
-	
+
 	private static String stockIdPrefix = "ST-10000";
 	private static String chassisNumberPrefix = "WBAHN81027DT225";
 
@@ -100,7 +100,7 @@ public class StockDataBuilder {
 				stock.setColor(colors[count % 4]);
 				stock.setDecoration(decorations[count % 3]);
 				stock.setVehicleChassisNumber(chassisNumberPrefix + id);
-				stock.setIsBelongTo(true);
+
 				stock.setStatus(statusCodes[count % 17]);
 				stock.setProductionDate(DateUtil.dateToString(now.minusDays(count + 100L)));
 				if(count % 4 == 0) {
@@ -108,6 +108,7 @@ public class StockDataBuilder {
 				}
 				stock.setStorageDate(DateUtil.dateToString(now.minusDays(count*6 + 10L)));
 				stock.setDeletable(count % 3 == 0 ? Boolean.FALSE : Boolean.TRUE);
+				stock.setIsBelongTo(!stock.getDeletable());
 				stock.setDeleted(Boolean.FALSE);
 				stockList.add(stock);
 			}
@@ -132,7 +133,7 @@ public class StockDataBuilder {
 			stock360.setCost(costs[random.nextInt(3)]);
 			// 备注字段
 			stock360.setComment(comments[random.nextInt(3)]);
-			
+
 			stock360List.add(stock360);
 		}
 		return stock360List;

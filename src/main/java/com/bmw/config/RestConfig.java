@@ -25,6 +25,7 @@ import com.bmw.controller.StockController;
 import com.bmw.model.Stock;
 import com.bmw.model.StockInsight;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
@@ -71,6 +72,7 @@ public class RestConfig implements WebMvcConfigurer {
     public List<Stock> stockList() throws IOException {
     	ValueOperations<String, String> ops = redisTemplate.opsForValue();
     	ObjectMapper objectMapper = new ObjectMapper();
+    	objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     	return objectMapper.readValue(ops.get(BMWPocConstants.REDIS_STOCK_LIST_KEY),
 					new TypeReference<List<Stock>>(){});
     }
@@ -80,6 +82,7 @@ public class RestConfig implements WebMvcConfigurer {
     public List<StockInsight> stockInsightList(List<Stock> stockList) throws IOException {
     	ValueOperations<String, String> ops = redisTemplate.opsForValue();
     	ObjectMapper objectMapper = new ObjectMapper();
+    	objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		return objectMapper.readValue(ops.get(BMWPocConstants.REDIS_STOCKINSIGHT_LIST_KEY),
 				new TypeReference<List<StockInsight>>(){});
     }
