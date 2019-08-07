@@ -63,6 +63,8 @@ public class StockDataBuilder {
 					stock.setLicensePlate(licensePlateCodes[count % 3]);
 				}
 				stock.setStorageDate(DateUtil.dateToString(now.minusDays(count + 1L)));
+				stock.setDeletable(count % 3 == 0 ? Boolean.TRUE : Boolean.FALSE);
+				stock.setDeleted(Boolean.FALSE);
 				stockList.add(stock);
 			}
 		}

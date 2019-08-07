@@ -2,7 +2,6 @@ package com.bmw.controller;
 
 import java.util.List;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bmw.common.BMWPocConstants;
 import com.bmw.entity.response.RestResponse;
 import com.bmw.model.Stock;
 import com.bmw.service.StockService;
@@ -24,8 +24,6 @@ import com.bmw.service.StockService;
 public class StockController {
 
 	private static Logger logger = LoggerFactory.getLogger(StockController.class);
-
-	private final ObjectMapper objectMapper = new ObjectMapper();
 
 	@Autowired
 	private StockService stockService;
@@ -47,22 +45,33 @@ public class StockController {
 	}
 
 	@DeleteMapping(value = "/{stockId}", produces = "application/json")
-	public RestResponse<Stock> deleteStock(
+	public RestResponse<Object> deleteStock(
 			@PathVariable(value = "stockId", required = false) String stockId) {
 
+		RestResponse<Object> response = new RestResponse<>();
 		logger.info("enter deleteStock with param stockId:{}",
 				stockId);
 
-		return new RestResponse<>();
+		response.setCode(stockService.deleteStock(stockId));
+		if(response.getCode().equals(BMWPocConstants.REST_ERROR_CODE)) {
+			response.setMessage(BMWPocConstants.ERROR_MSG_STOCK_DELETE);
+		}
+
+		return response;
 	}
 
 
 	@PutMapping(value = "/{stockId}", produces = "application/json")
 	public RestResponse<Stock> updateStock(
-			@RequestBody Stock stock) {
+			@RequestBody Stock stock,
+			@PathVariable(value = "stockId", required = false) String stockId) {
 
 		logger.info("enter updateStock with param stockId:{}", stock.getStockId());
-
+		RestResponse<Object> response = new RestResponse<>();
+		response.setCode(stockService.updateStock(stockId, stock));
+		if(response.getCode().equals(BMWPocConstants.REST_ERROR_CODE)) {
+			response.setMessage(BMWPocConstants.ERROR_MSG_STOCK_UPDATE);
+		}
 		return new RestResponse<>();
 	}
 

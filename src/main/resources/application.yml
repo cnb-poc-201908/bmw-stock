@@ -1,13 +1,27 @@
 spring:
   profiles:
-    active: k8s
+    active: local
 ---
 spring:
   profiles: local
   application:
     name: bmw-stock
+  redis:
+    database: 1
+    host: 112.126.99.2
+    port: 31379
+    lettuce:
+      shutdown-timeout: 100ms
+      pool:
+        min-idle: 5
+        max-idle: 10
+        max-active: 8
+        max-wait: 10ms
+      
 server:
   port: 20003
+  servlet:
+    context-path: /stock
 security:
   oauth2:
     client:
@@ -44,6 +58,7 @@ logging:
 #注册中心
 eureka:
   client:
+    enabled: false
     service-url:
       defaultZone: http://localhost:10001/eureka
   instance:

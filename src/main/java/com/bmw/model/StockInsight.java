@@ -1,6 +1,7 @@
 package com.bmw.model;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import com.bmw.common.BMWPocConstants;
 import com.bmw.utils.DateUtil;
 
@@ -30,11 +31,15 @@ public class StockInsight {
 	// 存放成本
 	private Long stockCost;
 
+	public StockInsight() {
+
+	}
+
 	public StockInsight(Stock s) {
 		this.dealerId = s.getDealerId();
 		this.regionId = s.getRegionId();
 		this.groupId = s.getGroupId();
-		
+
 		this.stockId = s.getStockId();
 		this.licensePlate = s.getLicensePlate();
 		this.storageDate = s.getStorageDate();

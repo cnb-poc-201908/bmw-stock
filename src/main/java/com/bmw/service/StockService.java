@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bmw.common.BMWPocConstants;
 import com.bmw.model.Stock;
 import com.bmw.model.StockInsight;
 import com.bmw.utils.DateUtil;
@@ -37,11 +38,11 @@ public class StockService {
 
 		if(StringUtils.isNotBlank(startDate)) {
 
-			source = source.stream().filter((Stock stock) -> DateUtil.compareDateString(stock.getProductionDate(), startDate) >= 0).collect(Collectors.toList());
+			source = source.stream().filter((Stock stock) -> DateUtil.compareDateString(stock.getStorageDate(), startDate) >= 0).collect(Collectors.toList());
 		}
 
 		if(StringUtils.isNotBlank(endDate)) {
-			source = source.stream().filter((Stock stock) -> DateUtil.compareDateString(stock.getProductionDate(), endDate) <= 0).collect(Collectors.toList());
+			source = source.stream().filter((Stock stock) -> DateUtil.compareDateString(stock.getStorageDate(), endDate) <= 0).collect(Collectors.toList());
 		}
 
 		if(StringUtils.isNotBlank(keyword)) {
@@ -49,6 +50,16 @@ public class StockService {
 		}
 
 		return source;
+	}
+
+	public Stock getStock(String stockId) {
+		Stock result = null;
+		for(Stock stock : stockList) {
+			if(stock.getStockId().equals(stockId)) {
+				result = stock;
+			}
+		}
+		return result;
 	}
 
 	public List<StockInsight> getStockInsightList(String dealerId, String regionId, String groupId) {
@@ -71,10 +82,10 @@ public class StockService {
 	}
 
 	public int updateStock(String stockId, Stock newStock) {
-		int result = -1;
+		int result = BMWPocConstants.REST_ERROR_CODE;
 		for(Stock stock : stockList) {
-			result = 0;
 			if(stockId != null && stockId.equals(stock.getStockId())) {
+				result = BMWPocConstants.REST_SUCCESS_CODE;
 				if(newStock.getStatus() != null) {
 					stock.setStatus(newStock.getStatus());
 				}
@@ -92,12 +103,13 @@ public class StockService {
 	}
 
 	public int deleteStock(String stockId) {
-		int result = -1;
+		int result = BMWPocConstants.REST_ERROR_CODE;
 
 		for(Stock stock : stockList) {
-			result = 0;
+
 			if(stockId != null && stockId.equals(stock.getStockId())
 					&& stock.getDeletable()) {
+				result = BMWPocConstants.REST_SUCCESS_CODE;
 				stock.setDeleted(Boolean.TRUE);
 			}
 		}
