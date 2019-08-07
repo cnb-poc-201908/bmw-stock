@@ -15,13 +15,11 @@ public class StockInsight {
 	private String groupId;
 
 	private String stockId;
-	private String licensePlate;
 	private String storageDate;
 	private String productionDate;
 	private String vehicleSeriesCode;
 	private String vehicleModelCode;
 	private String vehicleModelConfig;
-	private String model;
 	private String color;
 	private String decoration;
 	private String vehicleChassisNumber;
@@ -31,9 +29,48 @@ public class StockInsight {
 	// 存放成本
 	private Long stockCost;
 
+	// 订金
+	private Double deposit;
+	// 签约日期
+	private String contractDate;
+	// 签约金额
+	private Double contractAmount;
+	// 新增成本
+	private Double additionalCost;
+	// 备注字段
+	private String comment;
+
 	public StockInsight() {
 
 	}
+	
+	
+	public StockInsight(String dealerId, String regionId, String groupId, String stockId, String storageDate,
+			String productionDate, String vehicleSeriesCode, String vehicleModelCode, String vehicleModelConfig,
+			String color, String decoration, String vehicleChassisNumber, Long stockAge, Long stockCost, Double deposit,
+			String contractDate, Double contractAmount, Double additionalCost, String comment) {
+		super();
+		this.dealerId = dealerId;
+		this.regionId = regionId;
+		this.groupId = groupId;
+		this.stockId = stockId;
+		this.storageDate = storageDate;
+		this.productionDate = productionDate;
+		this.vehicleSeriesCode = vehicleSeriesCode;
+		this.vehicleModelCode = vehicleModelCode;
+		this.vehicleModelConfig = vehicleModelConfig;
+		this.color = color;
+		this.decoration = decoration;
+		this.vehicleChassisNumber = vehicleChassisNumber;
+		this.stockAge = stockAge;
+		this.stockCost = stockCost;
+		this.deposit = deposit;
+		this.contractDate = contractDate;
+		this.contractAmount = contractAmount;
+		this.additionalCost = additionalCost;
+		this.comment = comment;
+	}
+
 
 	public StockInsight(Stock s) {
 		this.dealerId = s.getDealerId();
@@ -41,13 +78,11 @@ public class StockInsight {
 		this.groupId = s.getGroupId();
 
 		this.stockId = s.getStockId();
-		this.licensePlate = s.getLicensePlate();
 		this.storageDate = s.getStorageDate();
 		this.productionDate = s.getProductionDate();
 		this.vehicleSeriesCode = s.getVehicleSeriesCode();
 		this.vehicleModelCode = s.getVehicleModelCode();
 		this.vehicleModelConfig = s.getVehicleModelConfig();
-		this.model = s.getModel();
 		this.color = s.getColor();
 		this.decoration = s.getDecoration();
 		this.vehicleChassisNumber = s.getVehicleChassisNumber();
@@ -64,14 +99,6 @@ public class StockInsight {
 
 	public void setStockId(String stockId) {
 		this.stockId = stockId;
-	}
-
-	public String getLicensePlate() {
-		return licensePlate;
-	}
-
-	public void setLicensePlate(String licensePlate) {
-		this.licensePlate = licensePlate;
 	}
 
 	public String getStorageDate() {
@@ -112,14 +139,6 @@ public class StockInsight {
 
 	public void setVehicleModelConfig(String vehicleModelConfig) {
 		this.vehicleModelConfig = vehicleModelConfig;
-	}
-
-	public String getModel() {
-		return model;
-	}
-
-	public void setModel(String model) {
-		this.model = model;
 	}
 
 	public String getColor() {
@@ -184,6 +203,46 @@ public class StockInsight {
 
 	public void setGroupId(String groupId) {
 		this.groupId = groupId;
+	}
+
+	public Double getDeposit() {
+		return deposit;
+	}
+
+	public void setDeposit(Double deposit) {
+		this.deposit = deposit;
+	}
+
+	public String getContractDate() {
+		return contractDate;
+	}
+
+	public void setContractDate(String contractDate) {
+		this.contractDate = contractDate;
+	}
+
+	public Double getContractAmount() {
+		return contractAmount;
+	}
+
+	public void setContractAmount(Double contractAmount) {
+		this.contractAmount = contractAmount;
+	}
+
+	public Double getAdditionalCost() {
+		return additionalCost;
+	}
+
+	public void setAdditionalCost(Double additionalCost) {
+		this.additionalCost = additionalCost;
+	}
+
+	public String getComments() {
+		return comment;
+	}
+
+	public void setComments(String comment) {
+		this.comment = comment;
 	}
 
 }
