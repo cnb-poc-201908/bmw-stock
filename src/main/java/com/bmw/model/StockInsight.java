@@ -26,8 +26,8 @@ public class StockInsight {
 
 	// 库存年龄
 	private Long stockAge;
-	// 存放成本
-	private Long stockCost;
+	// 价格
+	private Double cost;
 
 	// 订金
 	private Double deposit;
@@ -35,7 +35,7 @@ public class StockInsight {
 	private String contractDate;
 	// 签约金额
 	private Double contractAmount;
-	// 新增成本
+	// 新增成本就是存放成本
 	private Double additionalCost;
 	// 备注字段
 	private String comment;
@@ -43,34 +43,6 @@ public class StockInsight {
 	public StockInsight() {
 
 	}
-	
-	
-	public StockInsight(String dealerId, String regionId, String groupId, String stockId, String storageDate,
-			String productionDate, String vehicleSeriesCode, String vehicleModelCode, String vehicleModelConfig,
-			String color, String decoration, String vehicleChassisNumber, Long stockAge, Long stockCost, Double deposit,
-			String contractDate, Double contractAmount, Double additionalCost, String comment) {
-		super();
-		this.dealerId = dealerId;
-		this.regionId = regionId;
-		this.groupId = groupId;
-		this.stockId = stockId;
-		this.storageDate = storageDate;
-		this.productionDate = productionDate;
-		this.vehicleSeriesCode = vehicleSeriesCode;
-		this.vehicleModelCode = vehicleModelCode;
-		this.vehicleModelConfig = vehicleModelConfig;
-		this.color = color;
-		this.decoration = decoration;
-		this.vehicleChassisNumber = vehicleChassisNumber;
-		this.stockAge = stockAge;
-		this.stockCost = stockCost;
-		this.deposit = deposit;
-		this.contractDate = contractDate;
-		this.contractAmount = contractAmount;
-		this.additionalCost = additionalCost;
-		this.comment = comment;
-	}
-
 
 	public StockInsight(Stock s) {
 		this.dealerId = s.getDealerId();
@@ -90,7 +62,7 @@ public class StockInsight {
 		// 从入库日期开始计算
 		this.stockAge = DateUtil.intervalDays(s.getStorageDate());
 		// 通过库龄计算成本
-		this.stockCost = stockAge * BMWPocConstants.STOCK_PRICE_PER_DAY;
+		this.additionalCost = (double) (stockAge * BMWPocConstants.STOCK_PRICE_PER_DAY);
 	}
 
 	public String getStockId() {
@@ -173,12 +145,20 @@ public class StockInsight {
 		this.stockAge = stockAge;
 	}
 
-	public Long getStockCost() {
-		return stockCost;
+	public Double getCost() {
+		return cost;
 	}
 
-	public void setStockCost(Long stockCost) {
-		this.stockCost = stockCost;
+	public void setCost(Double cost) {
+		this.cost = cost;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	public String getDealerId() {
@@ -236,13 +216,6 @@ public class StockInsight {
 	public void setAdditionalCost(Double additionalCost) {
 		this.additionalCost = additionalCost;
 	}
-
-	public String getComments() {
-		return comment;
-	}
-
-	public void setComments(String comment) {
-		this.comment = comment;
-	}
-
+	
+	
 }

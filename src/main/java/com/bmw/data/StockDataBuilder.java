@@ -41,8 +41,8 @@ public class StockDataBuilder {
 
 	// 签约金额
 	private static Double[] contractAmounts = new Double[] { 568000.00, 837500.00, 738000.00, 249800.00 };
-	// 新增成本
-	private static Double[] additionalCosts = new Double[] { 1700.00, 2300.00, 3300.00, 2400.00 };
+	// 价格
+	private static Double[] costs = new Double[] { 600000.00, 850000.00, 800000.00, 300000.00 };;
 	// 备注字段
 	private static String[] comments = new String[] {"VIP客户","高利润","紧急","顶配"};
 	
@@ -128,10 +128,10 @@ public class StockDataBuilder {
 			stock360.setContractDate(DateUtil.dateToString(LocalDate.now().minusDays(random.nextInt(5))));
 			// 签约金额
 			stock360.setContractAmount(contractAmounts[random.nextInt(3)]);
-			// 新增成本
-			stock360.setAdditionalCost(additionalCosts[random.nextInt(3)]);
+			// 价格
+			stock360.setCost(costs[random.nextInt(3)]);
 			// 备注字段
-			stock360.setComments(comments[random.nextInt(3)]);
+			stock360.setComment(comments[random.nextInt(3)]);
 			
 			stock360List.add(stock360);
 		}
